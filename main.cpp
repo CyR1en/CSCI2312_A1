@@ -34,14 +34,12 @@ private:
     Point top_right_;
 
 public:
-    Rectangle(const Point &topLeft, int length, int width) : top_left_(topLeft),
-                                                             top_right_(Point(top_left_.getX() + width,
-                                                                              top_left_.getY())),
-                                                             bot_left_(Point(top_left_.getX(),
-                                                                             top_left_.getY() - length)),
-                                                             bot_right_(Point(top_left_.getX() + width,
-                                                                              top_left_.getY() - length)) {
-    }
+
+    Rectangle(const Point &topLeft, int length, int width) :
+            top_left_(topLeft),
+            top_right_(Point(top_left_.getX() + width, top_left_.getY())),
+            bot_left_(Point(top_left_.getX(), top_left_.getY() - length)),
+            bot_right_(Point(top_left_.getX() + width, top_left_.getY() - length)) {}
 
     const Point &getTopLeft() const {
         return top_left_;
@@ -114,28 +112,26 @@ public:
     static Rectangle askForRectInput() {
         double x, y;
         int length, width;
-
         x = askForNumInput("Top left x-coordinate:");
         y = askForNumInput("Top left y-coordinate:");
-        length = askForNumInput("Length:");
-        width = askForNumInput("Width:");
+        length = (int) askForNumInput("Length:");
+        width = (int) askForNumInput("Width:");
         return *new Rectangle(Point(x, y), length, width);;
     }
 
     static double askForNumInput(char const *prompt) {
-        while (true) {
-            cout << prompt;
-            double choice;
+        cout << prompt;
+        double choice;
+        std::cin >> choice;
+        //Number validation for input.
+        while (!std::cin.good()) {
+            std::cin.clear();
+            std::cin.ignore(INT_MAX, '\n');
+            std::cout << "That's not a number!" << endl;
+            cout << prompt << endl;
             std::cin >> choice;
-            while (!std::cin.good()) {
-                std::cin.clear();
-                std::cin.ignore(INT_MAX, '\n');
-                std::cout << "That's not a number!" << endl;
-                cout << prompt << endl;
-                std::cin >> choice;
-            }
-            return choice;
         }
+        return choice;
     }
 };
 
