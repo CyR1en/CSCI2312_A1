@@ -128,10 +128,11 @@ public:
         double r2REdge = rect2.getBotRight().getX(); // rect2 right edge.
         double r2BEdge = rect2.getBotRight().getY(); // rect2 bottom edge.
 
+
         return (top_left_.getX() < r2REdge && // !(cond1)
                 bot_right_.getX() > r2LEdge && // !(cond2)
-                top_left_.getY() < r2BEdge && // !(cond3)
-                bot_right_.getY() > r2TEdge); // !(cond4)
+                top_left_.getY() > r2BEdge && // !(cond3)
+                bot_right_.getY() < r2TEdge); // !(cond4)
     }
 
     /**
