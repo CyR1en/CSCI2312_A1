@@ -5,7 +5,7 @@
 using namespace std;
 
 /**
- * Class the represents a point on a Cartesian Plane.
+ * Class that represents a point on a Cartesian Plane.
  */
 class Point {
 private:
@@ -56,7 +56,7 @@ public:
 /**
  * Class that represents a Rectangle.
  *
- * This implementation relies heavily on the top-left point of the graph and the length and width
+ * This implementation relies heavily on the top-left point of the rectangle and the length and width
  * of the rectangle--to initialize all of the other points.
  */
 class Rectangle {
