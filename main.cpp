@@ -172,10 +172,8 @@ public:
      * carefully followed and used the same value to get the same output.
      */
     static void start() {
-        cout << "Please input data for the first rectangle" << endl;
-        Rectangle r1 = askForRectInput();
-        cout << "Please input data for the second rectangle" << endl;
-        Rectangle r2 = askForRectInput();
+        Rectangle r1 = askForRectInput("Please input data for the first rectangle \n");
+        Rectangle r2 = askForRectInput("Please input data for the second rectangle \n");
 
         cout << "\nRectangle 1 Points:" << endl;
         cout << r1.toString() << endl;
@@ -203,14 +201,15 @@ public:
 
     /**
      * Function that takes care of all the prompt for inputting rectangle
-     * date.
+     * data.
      *
      * Made it to a separate function to get rid of code duplication when asking for data
      * of multiple rectangles.
      *
      * @return Returns an instance of Rectangle that used input data.
      */
-    static Rectangle askForRectInput() {
+    static Rectangle askForRectInput(const char *prompt) {
+        cout << prompt;
         double x, y;
         int length, width;
         x = askForNumInput("Top left x-coordinate:");
@@ -231,7 +230,7 @@ public:
      * @param prompt Prompt to be printed out before opening up cin.
      * @return return the inputted number.
      */
-    static double askForNumInput(char const *prompt) {
+    static double askForNumInput(const char *prompt) {
         cout << prompt;
         double choice;
         std::cin >> choice;
