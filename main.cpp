@@ -24,7 +24,7 @@ public:
     }
 
     /**
-     * Accessor for the x-coordinate of the point.
+     * Immutable accessor for the x-coordinate of the point.
      *
      * @return x-coordinate of the point.
      */
@@ -33,7 +33,7 @@ public:
     }
 
     /**
-     * Accessor for the y-coordinate of the point.
+     * Immutable accessor for the y-coordinate of the point.
      *
      * @return y-coordinate of the point.
      */
@@ -42,7 +42,7 @@ public:
     }
 
     /**
-     * String representation of the point for easy printing.
+     * Immutable string representation of the point for easy printing.
      *
      * @return string representation of the point.
      */
@@ -121,7 +121,7 @@ public:
      * @param rect2 Another rectangle to check for collision.
      * @return true if this rectangle intersects param rect2, false if not.
      */
-    bool intersects(Rectangle &rect2) {
+    bool intersects(Rectangle &rect2) const {
         double r2LEdge = rect2.getTopLeft().getX(); // rect2 left edge.
         double r2TEdge = rect2.getTopLeft().getY(); // rect2 top edge.
 
@@ -136,14 +136,14 @@ public:
     }
 
     /**
-     * String representation of this rectangle for easier printing.
+     * Immutable string representation of this rectangle for easier printing.
      *
      * This returns all the corner points of the rectangle and ordered according to the
      * instructions on Canvas--(top-left), (bot-left), (bot-right), (top-right).
      *
      * @return string representation of this rectangle.
      */
-    string toString() {
+    string toString() const {
         stringstream ss;
         ss << top_left_.toString();
         ss << ", " << bot_left_.toString();
