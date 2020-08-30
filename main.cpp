@@ -180,8 +180,8 @@ public:
         cout << "\nRectangle 2 Points:" << endl;
         cout << r2.toString() << "\n" << endl;
 
-        string intersectOut = rectangles_intersect(r1, r2) ? "The two rectangles intersect."
-                                                           : "The two rectangles does not intersect.";
+        string intersectOut = rectangles_intersect(r1, r2) ?
+                "The two rectangles intersect." : "The two rectangles does not intersect.";
         cout << intersectOut << endl;
     }
 
