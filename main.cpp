@@ -237,7 +237,7 @@ public:
         //Number validation for input.
         while (!std::cin.good()) {
             std::cin.clear();
-            std::cin.ignore(INT_MAX, '\n');
+            std::cin.ignore(256, '\n');
             std::cout << "That's not a number!" << endl;
             cout << prompt << endl;
             std::cin >> choice;
