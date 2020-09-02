@@ -1,170 +1,135 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "main.h"
 
 using namespace std;
 
 /**
- * Class that represents a point on a Cartesian Plane.
- */
-class Point {
-private:
-    double x_;
-    double y_;
-public:
-    /**
-     * 2 param constructor for this class.
-     *
-     * @param x x-coordinate value for the point.
-     * @param y y-coordinate value for the point.
-     */
-    Point(double x, double y) {
-        x_ = x;
-        y_ = y;
-    }
-
-    /**
-     * Immutable accessor for the x-coordinate of the point.
-     *
-     * @return x-coordinate of the point.
-     */
-    double getX() const {
-        return x_;
-    }
-
-    /**
-     * Immutable accessor for the y-coordinate of the point.
-     *
-     * @return y-coordinate of the point.
-     */
-    double getY() const {
-        return y_;
-    }
-
-    /**
-     * Immutable string representation of the point for easy printing.
-     *
-     * @return string representation of the point.
-     */
-    string toString() const {
-        std::stringstream ss;
-        ss << "(" << getX() << ", " << getY() << ")";
-        return ss.str();
-    }
-};
+  * 2 param constructor for this class.
+  *
+  * @param x x-coordinate value for the point.
+  * @param y y-coordinate value for the point.
+  */
+Point::Point(double x, double y) : x_(x), y_(y) {}
 
 /**
- * Class that represents a Rectangle.
+ * Immutable accessor for the x-coordinate of the point.
  *
- * This implementation relies heavily on the top-left point of the rectangle and the length and width
- * of the rectangle--to initialize all of the other points.
+ * @return x-coordinate of the point.
  */
-class Rectangle {
-private:
-    Point top_left_;
-    Point bot_left_;
-    Point bot_right_;
-    Point top_right_;
-public:
-    /**
-     * Rectangle Constructor.
-     *
-     * This constructor initializes the class using initializer list because the class Point does
-     * not have a default constructor.
-     *
-     * @param topLeft Top-left point of the rectangle.
-     * @param length length of the rectangle.
-     * @param width width of the rectangle.
-     */
-    Rectangle(const Point &topLeft, int length, int width) :
-            top_left_(topLeft),
-            top_right_(Point(top_left_.getX() + width, top_left_.getY())),
-            bot_left_(Point(top_left_.getX(), top_left_.getY() - length)),
-            bot_right_(Point(top_left_.getX() + width, top_left_.getY() - length)) {}
+double Point::getX() const { return x_; }
 
-    /**
-     * const reference accessor for the top-left point of the rectangle for immutability.
-     * (Have a different function handle mutability of points.)
-     *
-     * @return top-left point of the rectangle.
-     */
-    const Point &getTopLeft() const {
-        return top_left_;
-    }
+/**
+* Immutable accessor for the y-coordinate of the point.
+*
+* @return y-coordinate of the point.
+*/
+double Point::getY() const { return y_; }
 
-    /**
-     * const reference accessor for the bottom-right point of the rectangle for immutability.
-     * (Have a different function handle mutability of points.)
-     *
-     * @return bottom-right point of the rectangle.
-     */
-    const Point &getBotRight() const {
-        return bot_right_;
-    }
+/**
+ * Immutable string representation of the point for easy printing.
+ *
+ * @return string representation of the point.
+ */
+string Point::toString() const {
+    std::stringstream ss;
+    ss << "(" << getX() << ", " << getY() << ")";
+    return ss.str();
+}
 
-    /**
-     * Function that checks if this rectangle intersects with another rectangle.
-     *
-     * Condition 1: If the left edge of this rect is to the right of rect2's right edge, then this
-     *              rectangle is to the right of rect2.
-     * Condition 2: Condition 1 but left and right are switched so this rectangle is to the left
-     *              of rect2.
-     * Condition 3: If the top edge of this rect is below rect2's bottom edge, then this rectangle
-     *              is below rect2
-     * Condition 4: Condition 3 but top and bottom switched so this rect is on top.
-     *
-     * If all conditions are not met then rects are intersecting.
-     *
-     * De Morgan's law: Not (Cond1 or Cond2 or Cond3 or Cond 4) is Not Cond1 and Not Cond2 and Not
-     *                  Not Cond3 and Not Cond4
-     *
-     * @param rect2 Another rectangle to check for collision.
-     * @return true if this rectangle intersects param rect2, false if not.
-     */
-    bool intersects(Rectangle &rect2) const {
-        double r2LEdge = rect2.getTopLeft().getX(); // rect2 left edge.
-        double r2TEdge = rect2.getTopLeft().getY(); // rect2 top edge.
-
-        double r2REdge = rect2.getBotRight().getX(); // rect2 right edge.
-        double r2BEdge = rect2.getBotRight().getY(); // rect2 bottom edge.
-
-
-        return (top_left_.getX() < r2REdge && // !(cond1)
-                bot_right_.getX() > r2LEdge && // !(cond2)
-                top_left_.getY() > r2BEdge && // !(cond3)
-                bot_right_.getY() < r2TEdge); // !(cond4)
-    }
-
-    /**
-     * Immutable string representation of this rectangle for easier printing.
-     *
-     * This returns all the corner points of the rectangle and ordered according to the
-     * instructions on Canvas--(top-left), (bot-left), (bot-right), (top-right).
-     *
-     * @return string representation of this rectangle.
-     */
-    string toString() const {
-        stringstream ss;
-        ss << top_left_.toString();
-        ss << ", " << bot_left_.toString();
-        ss << ", " << bot_right_.toString();
-        ss << ", " << top_right_.toString();
-        return ss.str();
-    }
-};
+/**
+ * Rectangle Constructor.
+ *
+ * This constructor initializes the class using initializer list because the class Point does
+ * not have a default constructor.
+ *
+ * @param topLeft Top-left point of the rectangle.
+ * @param length length of the rectangle.
+ * @param width width of the rectangle.
+ */
+Rectangle::Rectangle(const Point &topLeft, int length, int width) :
+        top_left_(topLeft),
+        top_right_(Point(top_left_.getX() + width, top_left_.getY())),
+        bot_left_(Point(top_left_.getX(), top_left_.getY() - length)),
+        bot_right_(Point(top_left_.getX() + width, top_left_.getY() - length)) {}
 
 
 /**
- * Class that drives the implemented classes above.
+ * const reference accessor for the top-left point of the rectangle for immutability.
+ * (Have a different function handle mutability of points.)
  *
- * Made a different class for the actual assignment (Because I think it looks cleaner).
- *
- * All functions are static to make it easier to access from outside the class and there are
- * no class state that I have to keep track of anyways.
+ * @return top-left point of the rectangle.
  */
+
+const Point &Rectangle::getTopLeft() const {
+    return top_left_;
+}
+
+/**
+ * const reference accessor for the bottom-right point of the rectangle for immutability.
+ * (Have a different function handle mutability of points.)
+ *
+ * @return bottom-right point of the rectangle.
+ */
+
+const Point &Rectangle::getBotRight() const {
+    return bot_right_;
+}
+
+/**
+ * Function that checks if this rectangle intersects with another rectangle.
+ *
+ * Condition 1: If the left edge of this rect is to the right of rect2's right edge, then this
+ *              rectangle is to the right of rect2.
+ * Condition 2: Condition 1 but left and right are switched so this rectangle is to the left
+ *              of rect2.
+ * Condition 3: If the top edge of this rect is below rect2's bottom edge, then this rectangle
+ *              is below rect2
+ * Condition 4: Condition 3 but top and bottom switched so this rect is on top.
+ *
+ * If all conditions are not met then rects are intersecting.
+ *
+ * De Morgan's law: Not (Cond1 or Cond2 or Cond3 or Cond 4) is Not Cond1 and Not Cond2 and Not
+ *                  Not Cond3 and Not Cond4
+ *
+ * @param rect2 Another rectangle to check for collision.
+ * @return true if this rectangle intersects param rect2, false if not.
+ */
+bool Rectangle::intersects(Rectangle &rect2) const {
+    double r2LEdge = rect2.getTopLeft().getX(); // rect2 left edge.
+    double r2TEdge = rect2.getTopLeft().getY(); // rect2 top edge.
+
+    double r2REdge = rect2.getBotRight().getX(); // rect2 right edge.
+    double r2BEdge = rect2.getBotRight().getY(); // rect2 bottom edge.
+
+
+    return (top_left_.getX() < r2REdge && // !(cond1)
+            bot_right_.getX() > r2LEdge && // !(cond2)
+            top_left_.getY() > r2BEdge && // !(cond3)
+            bot_right_.getY() < r2TEdge); // !(cond4)
+}
+
+/**
+ * Immutable string representation of this rectangle for easier printing.
+ *
+ * This returns all the corner points of the rectangle and ordered according to the
+ * instructions on Canvas--(top-left), (bot-left), (bot-right), (top-right).
+ *
+ * @return string representation of this rectangle.
+ */
+string Rectangle::toString() const {
+    stringstream ss;
+    ss << top_left_.toString();
+    ss << ", " << bot_left_.toString();
+    ss << ", " << bot_right_.toString();
+    ss << ", " << top_right_.toString();
+    return ss.str();
+}
+
+
 class Assignment1 {
 public:
-
     /**
      * Actual procedure for the assignment is in this function.
      *
@@ -181,7 +146,7 @@ public:
         cout << r2.toString() << "\n" << endl;
 
         string intersectOut = rectangles_intersect(r1, r2) ?
-                "The two rectangles intersect." : "The two rectangles does not intersect.";
+                              "The two rectangles intersect." : "The two rectangles does not intersect.";
         cout << intersectOut << endl;
     }
 
