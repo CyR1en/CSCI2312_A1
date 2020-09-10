@@ -33,7 +33,7 @@ double Point::getY() const { return y_; }
  * @return string representation of the point.
  */
 string Point::toString() const {
-    std::stringstream ss;
+    stringstream ss;
     ss << "(" << getX() << ", " << getY() << ")";
     return ss.str();
 }
@@ -181,7 +181,7 @@ public:
         y = askForNumInput("Top left y-coordinate:");
         length = (int) askForNumInput("Length:");
         width = (int) askForNumInput("Width:");
-        return *new Rectangle(Point(x, y), length, width);;
+        return *new Rectangle(Point(x, y), length, width);
     }
 
     /**
@@ -198,14 +198,14 @@ public:
     static double askForNumInput(const char *prompt) {
         cout << prompt;
         double choice;
-        std::cin >> choice;
+        cin >> choice;
         //Number validation for input.
-        while (!std::cin.good()) {
-            std::cin.clear();
-            std::cin.ignore(256, '\n');
-            std::cout << "That's not a number!" << endl;
+        while (!cin.good()) {
+            cin.clear();
+            cin.ignore(256, '\n');
+            cout << "That's not a number!" << endl;
             cout << prompt << endl;
-            std::cin >> choice;
+            cin >> choice;
         }
         return choice;
     }
